@@ -61,9 +61,8 @@ def cal():
         # print(month_pos * 8 + dayOfWeek)
 
         state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
-        print(state[month_pos * 8:month_pos * 8+6])
+        #print(state[month_pos * 8:month_pos * 8+6])
         if state[month_pos * 8:month_pos * 8+7] == ["m", "t", "w", "t", "f", " ", " "]:
-            print("hello")
             state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "d", "a", "y"]
         if state[month_pos * 8:month_pos * 8+7] == [" ", " ", " ", " ", " ", "s", "s"]:
             state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "e", "n", "d"]
