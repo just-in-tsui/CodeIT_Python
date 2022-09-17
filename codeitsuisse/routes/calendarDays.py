@@ -61,6 +61,10 @@ def cal():
         # print(month_pos * 8 + dayOfWeek)
 
         state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
+        print(state[month_pos * 8:month_pos * 8+6])
+        if state[month_pos * 8:month_pos * 8+7] == ["m", "t", "w", "t", "f", " ", " "]:
+            print("hello")
+            state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "d", "a", "y"]
 
     for i in range(1, maxDays+1):
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
@@ -95,9 +99,9 @@ def cal():
         if isWeekend and not isWeekday:
             for j in range(7):
                 state[8 * i + j] = text1[j]
-        if isWeekday and not isWeekend:
-            for j in range(7):
-                state[8 * i + j] = text2[j]
+        #if isWeekday and not isWeekend:
+            #for j in range(7):
+                #state[8 * i + j] = text2[j]
         if isAllWeekend and isAllWeekday:
             for j in range(7):
                 state[8 * i + j] = text3[j]
