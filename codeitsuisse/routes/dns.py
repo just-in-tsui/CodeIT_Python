@@ -46,6 +46,7 @@ class LRUCache:
 @app.route("/ /simulateQuery",methods=["POST"])
 def makeQuery():
     cache = LRUCache(request.get_json()['cacheSize'])
+    print(cache.cache)
     output = []
     with open('lookUp.json') as f:
         dnsMap = (json.load(f))['lookupTable']
