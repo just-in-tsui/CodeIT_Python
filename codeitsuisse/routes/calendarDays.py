@@ -48,7 +48,8 @@ def cal():
         delta = datetime.timedelta(day - 1)  # str(delta) will be '31 days, 0:00:00'
         newdate = date + delta  # date = 2022-03-21
         month_pos = newdate.month - 1
-        new_days[month_pos].append(day)
+        if maxDays >= day > 0:
+            new_days[month_pos].append(day)
     state = list(state)
 
     for day in days:
@@ -62,6 +63,8 @@ def cal():
         week = ["m", "t", "w", "t", "f", "s", "s"]
         # print(month_pos * 8 + dayOfWeek)
         if maxDays >= day > 0:
+            if(dayOfWeek == 5 or dayOfWeek == 6) and( month_pos == 3):
+                print(day)
             state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
         #print(state[month_pos * 8:month_pos * 8+6])
 
@@ -76,34 +79,9 @@ def cal():
         else:
             weekdays[month_pos].append(i)
             weekdays[month_pos].sort()
+    #print("STATE", "".join(state))
 
-    for i in range(12):
-        isWeekend = False
-        isWeekday = False
-        isAllWeekend = False
-        isAllWeekday = False
-        text1 = ["w", "e", "e", "k", "e", "n", "d"]
-        text2 = ["w", "e", "e", "k", "d", "a", "y"]
-        text3 = ["a", "l", "l", "d", "a", "y", "s"]
-
-        if all(x in new_days[i] for x in weekends[i]):  # i = month -1
-            isAllWeekend = True
-        if all(x in new_days[i] for x in weekdays[i]):
-            isAllWeekday = True
-        for j in new_days[i]:
-            if j in weekends[i]:
-                isWeekend = True
-            if j in weekdays[i]:
-                isWeekday = True
-        if isWeekend and not isWeekday:
-            for j in range(7):
-                state[8 * i + j] = text1[j]
-        #if isWeekday and not isWeekend:
-            #for j in range(7):
-                #state[8 * i + j] = text2[j]
-        if isAllWeekend and isAllWeekday:
-            for j in range(7):
-                state[8 * i + j] = text3[j]
+        #print("STATE", "".join(state))
 
     for i in range(12):
         if state[i * 8:i * 8 + 7] == ["m", "t", "w", "t", "f", " ", " "]:
@@ -113,10 +91,12 @@ def cal():
         if state[i * 8:i * 8 + 7] == ["m", "t", "w", "t", "f", "s", "s"]:
             state[i * 8:i * 8 + 7] = ["a", "l", "l", "d", "a", "y", "s"]
     result1 = ''.join(state)
+
+    # ------------------------------------
     index = result1.find(" ")
     newYear = 2001 + index
     input2 = result1.split(",")[:-1]
-    print(newYear,input2)
+    #print(newYear,input2)
 
     weekends = []
     weekdays = []
