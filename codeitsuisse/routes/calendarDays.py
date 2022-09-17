@@ -107,7 +107,6 @@ def cal():
             for j in range(7):
                 state[8 * i + j] = text3[j]
 
-    print(state)
 
     result = ''.join(state)
     result = {"part1": result,"part2": [2022,1]}
