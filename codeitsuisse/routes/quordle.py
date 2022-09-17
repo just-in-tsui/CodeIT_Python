@@ -18,7 +18,7 @@ def quordle():
     real_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     answers = data.get("answers")
     unique_ans_char = check_uni_char(answers)
-    print(unique_ans_char)
+    #print(unique_ans_char)
     attempts = data.get("attempts")
     greyed_out = {}
     alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -43,13 +43,33 @@ def quordle():
         #print(attempt)
         #print(alphabet)
         #print(unique_ans_char)
-        for i in greyed_out.keys():
-            if greyed_out[i] > 0:
-                print(f'{i}:{greyed_out[i]}')
+        #for i in greyed_out.keys():
+            #if greyed_out[i] > 0:
+                #print(f'{i}:{greyed_out[i]}')
     result1 = ""
     for i in greyed_out.keys():
         if greyed_out[i] > 0:
             result1 += str(greyed_out[i])
+    leftover = ""
+    for i in alphabet:
+        if i != " ":
+            leftover += i
+    print("leftover:", leftover)
+    result2 = ""
+    numbers = data.get("numbers")
+    binary = []
+    for number in numbers:
+        if str(number) in  result1:
+            binary.append(1)
+        else:
+            binary.append(0)
+    for i in range(0,len(binary),5):
+        bin = []
+        for j in range(5):
+            bin.append(str(binary[i+j]))
+        bin = chr(int("".join(bin),2) + ord('A')-1)
+        result2 += bin
+    result2 += leftover
 
 
 
@@ -58,7 +78,8 @@ def quordle():
 
 
 
-    result2=""
+
+
     result = {"part1": result1, "part2":result2}
     logging.info("My result :{}".format(result))
     return json.dumps(result)
