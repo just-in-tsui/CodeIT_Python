@@ -62,10 +62,6 @@ def cal():
 
         state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
         #print(state[month_pos * 8:month_pos * 8+6])
-        if state[month_pos * 8:month_pos * 8+7] == ["m", "t", "w", "t", "f", " ", " "]:
-            state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "d", "a", "y"]
-        if state[month_pos * 8:month_pos * 8+7] == [" ", " ", " ", " ", " ", "s", "s"]:
-            state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "e", "n", "d"]
 
     for i in range(1, maxDays+1):
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
@@ -107,6 +103,11 @@ def cal():
             for j in range(7):
                 state[8 * i + j] = text3[j]
 
+    for i in range(12):
+        if state[i * 8:i * 8 + 7] == ["m", "t", "w", "t", "f", " ", " "]:
+            state[i * 8:i* 8 + 7] = ["w", "e", "e", "k", "d", "a", "y"]
+        if state[i * 8:i * 8 + 7] == [" ", " ", " ", " ", " ", "s", "s"]:
+            state[i * 8:i * 8 + 7] = ["w", "e", "e", "k", "e", "n", "d"]
 
     result = ''.join(state)
     result = {"part1": result,"part2": [2022,1]}
