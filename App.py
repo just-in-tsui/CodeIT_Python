@@ -1,7 +1,6 @@
 import logging
 import socket
 from codeitsuisse import app
-import time
 
 
 from flask import Flask
