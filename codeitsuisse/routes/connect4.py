@@ -25,13 +25,50 @@ def makemove1(board,youAre,battleId,players,turn):
         rdata['column']  = "D"
         requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
         rdata["player"] = youAre
+
     else:
         columns = "ABCDEFG"
         rdata['action'] = 'putToken'
         rdata['column']  = random.choice(columns)
         requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
         rdata["player"] = youAre
+
     return rdata
+
+
+def winning_move(board, piece):
+    ROW_COUNT = 6
+    COLUMN_COUNT = 7
+    # Check horizontal locations for win
+    for c in range(COLUMN_COUNT - 3):
+        for r in range(ROW_COUNT):
+            if board[r][c] == piece and board[r][c + 1] == piece and board[r][c + 2] == piece and board[r][
+                c + 3] == piece:
+                return True
+
+    # Check vertical locations for win
+    for c in range(COLUMN_COUNT):
+        for r in range(ROW_COUNT - 3):
+            if board[r][c] == piece and board[r + 1][c] == piece and board[r + 2][c] == piece and board[r + 3][
+                c] == piece:
+                return True
+
+    # Check positively sloped diaganols
+    for c in range(COLUMN_COUNT - 3):
+        for r in range(ROW_COUNT - 3):
+            if board[r][c] == piece and board[r + 1][c + 1] == piece and board[r + 2][c + 2] == piece and board[r + 3][
+                c + 3] == piece:
+                return True
+
+    # Check negatively sloped diaganols
+    for c in range(COLUMN_COUNT - 3):
+        for r in range(3, ROW_COUNT):
+            if board[r][c] == piece and board[r - 1][c + 1] == piece and board[r - 2][c + 2] == piece and board[r - 3][
+                c + 3] == piece:
+                return True
+    return False
+
+
 
 def updateBoard(board, data, youAre): # action of put token by both side
     col = data["column"]
@@ -75,8 +112,7 @@ def connect4():
             # step by step: data: player(), action(), column
             # finals: winner()
             # flip: player(), action(flip)
-            raction = data["action"]
-            if raction =="putToken":
+            if data["action"] =="putToken":
                 board = updateBoard(board,data, youAre)
                 decision = makemove1(board,youAre,battleId,turn)
                 board = updateBoard(board, decision, youAre)
