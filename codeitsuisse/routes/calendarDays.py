@@ -148,7 +148,8 @@ def cal():
                 elif input2[month_pos][4] == 'f' and newdate.weekday() == 4 and not satisfied["Fr"]:
                     result2.append(j)
                     satisfied["Fr"] = True
-                elif input2[month_pos][5] == 's' and newdate.weekday() == 5 and not satisfied["Sa"]:
+            for j in weekends[month_pos]:
+                if input2[month_pos][5] == 's' and newdate.weekday() == 5 and not satisfied["Sa"]:
                     result2.append(j)
                     satisfied["Sa"] = True
                 elif input2[month_pos][6] == 's' and newdate.weekday() == 6 and not satisfied["Su"]:
