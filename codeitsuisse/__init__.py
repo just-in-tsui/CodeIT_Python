@@ -6,7 +6,8 @@ import codeitsuisse.routes.calendarDays
 import codeitsuisse.routes.stonks
 import codeitsuisse.routes.quordle
 import codeitsuisse.routes.dns
-import codeitsuisse.routes.connect4
 
+import codeitsuisse.routes.connect4
+import codeitsuisse.routes.connect4_og
 
 

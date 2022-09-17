@@ -36,40 +36,6 @@ def makemove1(board,youAre,battleId,players,turn):
     return rdata
 
 
-def winning_move(board, piece):
-    ROW_COUNT = 6
-    COLUMN_COUNT = 7
-    # Check horizontal locations for win
-    for c in range(COLUMN_COUNT - 3):
-        for r in range(ROW_COUNT):
-            if board[r][c] == piece and board[r][c + 1] == piece and board[r][c + 2] == piece and board[r][
-                c + 3] == piece:
-                return True
-
-    # Check vertical locations for win
-    for c in range(COLUMN_COUNT):
-        for r in range(ROW_COUNT - 3):
-            if board[r][c] == piece and board[r + 1][c] == piece and board[r + 2][c] == piece and board[r + 3][
-                c] == piece:
-                return True
-
-    # Check positively sloped diaganols
-    for c in range(COLUMN_COUNT - 3):
-        for r in range(ROW_COUNT - 3):
-            if board[r][c] == piece and board[r + 1][c + 1] == piece and board[r + 2][c + 2] == piece and board[r + 3][
-                c + 3] == piece:
-                return True
-
-    # Check negatively sloped diaganols
-    for c in range(COLUMN_COUNT - 3):
-        for r in range(3, ROW_COUNT):
-            if board[r][c] == piece and board[r - 1][c + 1] == piece and board[r - 2][c + 2] == piece and board[r - 3][
-                c + 3] == piece:
-                return True
-    return False
-
-
-
 def updateBoard(board, data, youAre): # action of put token by both side
     col = ord(data["column"])-ord("A")
     for i in range(6):
@@ -84,7 +50,7 @@ def updateBoard(board, data, youAre): # action of put token by both side
     return board
 
 
-@app.route('/connect4', methods=['POST'])
+@app.route('/connect5', methods=['POST'])
 def connect4():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
@@ -114,23 +80,23 @@ def connect4():
             # flip: player(), action(flip)
             if "action" in data:
                 action = data["action"]
+                player = data["player"]
                 if action =="putToken":
-                    board = updateBoard(board,data, youAre)
-                    decision = makemove1(board,youAre,battleId,turn)
-                    board = updateBoard(board, decision, youAre)
-                if action =="(╯°□°)╯︵ ┻━┻":
+                    board = updateBoard(board,data, player)
+                    columns = "ABCDEFG"
                     rdata = {}
-                    rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                    rdata['action'] = 'putToken'
+                    rdata['column'] = random.choice(columns)
                     requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
-                    gameOn = False
-                    break
-
-            if "winner" in data:
+                    rdata["player"] = youAre
+                    board = updateBoard(board, rdata, youAre)
+            elif turn >0:
                 rdata = {}
                 rdata['action'] = '(╯°□°)╯︵ ┻━┻'
                 requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
                 gameOn = False
                 break
+
 
 
 
