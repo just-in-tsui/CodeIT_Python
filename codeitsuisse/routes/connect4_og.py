@@ -42,6 +42,7 @@ def connect4():
                     if(data['youAre'] == "\xF0\x9F\x94\xB4"):
                         logging.info("Prepare to make move")
                         flip(battleId)
+                        break
             except:
                 try:
                     columns ="ABCDEFG"

@@ -51,7 +51,7 @@ def updateBoard(board, data, youAre): # action of put token by both side
 
 
 @app.route('/connect5', methods=['POST'])
-def connect4():
+def connect5():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     battleId = data.get("battleId")
