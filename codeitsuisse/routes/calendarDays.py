@@ -63,8 +63,6 @@ def cal():
         week = ["m", "t", "w", "t", "f", "s", "s"]
         # print(month_pos * 8 + dayOfWeek)
         if maxDays >= day > 0:
-            if(dayOfWeek == 5 or dayOfWeek == 6) and( month_pos == 3):
-                print(day)
             state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
         #print(state[month_pos * 8:month_pos * 8+6])
 
@@ -135,19 +133,26 @@ def cal():
         elif input2[month_pos] == "weekend":
             result2.extend(weekends[month_pos])
         else:
-            for j in weekdays[month_pos]:
+            satisfied ={"Mo":False,"Tu": False, "We":False, "Th": False, "Fr":False }
+            for j in weekdays[month_pos]: #checking every weekday in the month
+
                 delta = datetime.timedelta(j - 1)  # str(delta) will be '31 days, 0:00:00'
                 newdate = date + delta  # date = 2022-03-21
-                if input2[month_pos][0] == 'm' and newdate.weekday() == 0 :
+                if input2[month_pos][0] == 'm' and newdate.weekday() == 0 and not satisfied["Mo"]:
                     result2.append(j)
-                elif input2[month_pos][1] == 't' and newdate.weekday() == 1 :
+                    satisfied["Mo"] = True
+                elif input2[month_pos][1] == 't' and newdate.weekday() == 1 and not satisfied["Tu"]:
                     result2.append(j)
-                elif input2[month_pos][2] == 'w' and newdate.weekday() == 2 :
+                    satisfied["Tu"] = True
+                elif input2[month_pos][2] == 'w' and newdate.weekday() == 2 and not satisfied["We"]:
                     result2.append(j)
-                elif input2[month_pos][3] == 't' and newdate.weekday() == 3 :
+                    satisfied["We"] = True
+                elif input2[month_pos][3] == 't' and newdate.weekday() == 3 and not satisfied["Th"]:
                     result2.append(j)
-                elif input2[month_pos][1] == 'f' and newdate.weekday() == 4 :
+                    satisfied["Th"] = True
+                elif input2[month_pos][1] == 'f' and newdate.weekday() == 4 and not satisfied["Fr"]:
                     result2.append(j)
+                    satisfied["Fr"] = True
     print(result2)
 
 
