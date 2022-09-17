@@ -61,7 +61,7 @@ def cal():
         dayOfWeek = newdate.weekday()  # Mon = 0 ,Sun = 6
         week = ["m", "t", "w", "t", "f", "s", "s"]
         # print(month_pos * 8 + dayOfWeek)
-        if day <= maxDays:
+        if maxDays >= day > 0:
             state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
         #print(state[month_pos * 8:month_pos * 8+6])
 
