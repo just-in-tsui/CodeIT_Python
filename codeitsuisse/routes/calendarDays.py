@@ -128,7 +128,7 @@ def cal():
             result2.extend(weekends[month_pos])
         else:
             satisfied ={"Mo":False,"Tu": False, "We":False, "Th": False, "Fr":False, "Sa": False, "Su": False}
-            print(input2[month_pos])
+            #print(input2[month_pos])
             for j in weekdays[month_pos]: #checking every weekday in the month
 
                 delta = datetime.timedelta(j - 1)  # str(delta) will be '31 days, 0:00:00'
@@ -148,7 +148,9 @@ def cal():
                 elif input2[month_pos][4] == 'f' and newdate.weekday() == 4 and not satisfied["Fr"]:
                     result2.append(j)
                     satisfied["Fr"] = True
-            for j in weekends[month_pos]:
+            for j in weekends[month_pos]: #check every weekend
+                delta = datetime.timedelta(j - 1)  # str(delta) will be '31 days, 0:00:00'
+                newdate = date + delta  # date = 2022-03-21
                 if input2[month_pos][5] == 's' and newdate.weekday() == 5 and not satisfied["Sa"]:
                     result2.append(j)
                     satisfied["Sa"] = True
