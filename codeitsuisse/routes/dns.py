@@ -1,6 +1,7 @@
 from collections import OrderedDict
 import logging
 import json
+import pprint
 import pickle
 from flask import request, jsonify
 from codeitsuisse import app
@@ -41,28 +42,39 @@ class LRUCache:
         self.cache.move_to_end(key)
         if len(self.cache) > self.capacity:
             self.cache.popitem(last = False)
+    def check(self):
+        print(self.cache.items())
  
 @app.route("/simulateQuery",methods=["POST"])
 @app.route("/ /simulateQuery",methods=["POST"])
 def makeQuery():
     cache = LRUCache(request.get_json()['cacheSize'])
-    print(cache.cache)
+    #LRUCache.check(cache)
     output = []
     with open('lookUp.json') as f:
         dnsMap = (json.load(f))['lookupTable']
         logger.info(dnsMap)
     logger.info(request.get_json())
     for url in request.get_json()['log']:
+        json.dump(cache.cache)
         if url not in dnsMap:
-            output.append({"status":"invalid",
-            "ipAddress":"null"})
+            msg2 = {"status":"invalid",
+            "ipAddress":"null"}
+            output.append(msg2)
+            print(str(msg2)[11:24],url)
             continue
         if cache.get(url) != -1:
-            output.append({"status":"cache hit",
-            "ipAddress":cache.get(url)})
+            msg = {"status":"cache hit",
+            "ipAddress":cache.get(url)}
+            print(str(msg)[11:24],url)
+            output.append(msg)
+
             continue
-        output.append({"status":"cache miss",
-            "ipAddress":dnsMap[url]})
+        msg1 = {"status":"cache miss",
+            "ipAddress":dnsMap[url]}
+        print(str(msg1)[11:24],url)
+        output.append(msg1)
+
         cache.put(url,dnsMap[url])
         
     return jsonify(output)
