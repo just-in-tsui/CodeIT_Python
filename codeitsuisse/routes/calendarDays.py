@@ -110,7 +110,7 @@ def cal():
             weekdays[month_pos].append(i)
             weekdays[month_pos].sort()
     for day in days:
-        date = datetime.date(year, 1, 1)  # Will give 1996-01-01
+        date = datetime.date(newYear, 1, 1)  # Will give 1996-01-01
         delta = datetime.timedelta(day - 1)  # str(delta) will be '31 days, 0:00:00'
         newdate = date + delta  # date = 2022-03-21
         month_pos = newdate.month - 1
