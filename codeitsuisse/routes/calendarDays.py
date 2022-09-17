@@ -99,7 +99,7 @@ def evaluate():
 
     print(state)
 
-    result = inputValue * inputValue
-    logging.info("My result :{}".format(result))
+    result = state
+    logging.info("part1 :{}".format(result))
     return json.dumps(result)
 
