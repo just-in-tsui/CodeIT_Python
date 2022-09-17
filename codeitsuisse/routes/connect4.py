@@ -119,9 +119,16 @@ def connect4():
                     decision = makemove1(board,youAre,battleId,turn)
                     board = updateBoard(board, decision, youAre)
                 if action =="(╯°□°)╯︵ ┻━┻":
+                    rdata = {}
+                    rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                    requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
                     gameOn = False
+                    break
 
             if "winner" in data:
+                rdata = {}
+                rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+                requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
                 gameOn = False
                 break
 
