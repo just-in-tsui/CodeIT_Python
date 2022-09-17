@@ -112,11 +112,17 @@ def connect4():
             # step by step: data: player(), action(), column
             # finals: winner()
             # flip: player(), action(flip)
-            if data["action"] =="putToken":
-                board = updateBoard(board,data, youAre)
-                decision = makemove1(board,youAre,battleId,turn)
-                board = updateBoard(board, decision, youAre)
-            elif "winner" in data or "action" in data:
+            if "action" in data:
+                action = data["action"]
+                if action =="putToken":
+                    board = updateBoard(board,data, youAre)
+                    decision = makemove1(board,youAre,battleId,turn)
+                    board = updateBoard(board, decision, youAre)
+                if action =="(╯°□°)╯︵ ┻━┻":
+                    gameOn = False
+
+            if "winner" in data:
+                gameOn = False
                 break
 
 
