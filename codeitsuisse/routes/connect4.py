@@ -71,7 +71,7 @@ def winning_move(board, piece):
 
 
 def updateBoard(board, data, youAre): # action of put token by both side
-    col = data["column"]
+    col = ord(data["column"])-ord("A")
     for i in range(6):
         if board[i][col] != 0:
             if data["player"] == youAre:
