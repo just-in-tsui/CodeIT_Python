@@ -21,7 +21,7 @@ def checkLeapYear(Year):
 
 
 @app.route('/calendarDays', methods = ['POST'])
-def evaluate():
+def cal():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     inputValue = data.get("numbers")
@@ -99,7 +99,7 @@ def evaluate():
 
     print(state)
 
-    result = state
+    result = ''.join(state)
     logging.info("part1 :{}".format(result))
     return json.dumps(result)
 
