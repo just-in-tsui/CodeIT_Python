@@ -108,6 +108,8 @@ def cal():
             state[i * 8:i* 8 + 7] = ["w", "e", "e", "k", "d", "a", "y"]
         if state[i * 8:i * 8 + 7] == [" ", " ", " ", " ", " ", "s", "s"]:
             state[i * 8:i * 8 + 7] = ["w", "e", "e", "k", "e", "n", "d"]
+        if state[i * 8:i * 8 + 7] == ["m", "t", "w", "t", "f", "s", "s"]:
+            state[i * 8:i * 8 + 7] = ["a", "l", "l", "d", "a", "y", "s"]
 
     result = ''.join(state)
     result = {"part1": result,"part2": [2022,1]}
