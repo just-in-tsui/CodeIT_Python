@@ -50,17 +50,19 @@ def cal():
         month_pos = newdate.month - 1
         new_days[month_pos].append(day)
     state = list(state)
+
     for day in days:
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
         delta = datetime.timedelta(day - 1)  # str(delta) will be '31 days, 0:00:00'
         newdate = date + delta  # date = 2022-03-21
-        # print(newdate)
+
+
         month_pos = newdate.month - 1  # month = 3 -> [2]
         dayOfWeek = newdate.weekday()  # Mon = 0 ,Sun = 6
         week = ["m", "t", "w", "t", "f", "s", "s"]
         # print(month_pos * 8 + dayOfWeek)
-
-        state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
+        if day <= maxDays:
+            state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
         #print(state[month_pos * 8:month_pos * 8+6])
 
     for i in range(1, maxDays+1):
