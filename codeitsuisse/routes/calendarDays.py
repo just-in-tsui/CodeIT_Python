@@ -100,6 +100,8 @@ def cal():
     print(state)
 
     result = ''.join(state)
+    result = {"part1": result}
     logging.info("part1 :{}".format(result))
     return json.dumps(result)
+
 
