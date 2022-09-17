@@ -47,7 +47,6 @@ def cal():
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
         delta = datetime.timedelta(day - 1)  # str(delta) will be '31 days, 0:00:00'
         newdate = date + delta  # date = 2022-03-21
-        # print(newdate)
         month_pos = newdate.month - 1
         new_days[month_pos].append(day)
     state = list(state)
@@ -63,7 +62,7 @@ def cal():
 
         state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
 
-    for i in range(1, maxDays):
+    for i in range(1, maxDays+1):
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
         delta = datetime.timedelta(i - 1)  # str(delta) will be '31 days, 0:00:00'
         newdate = date + delta  # date = 2022-03-21
@@ -78,22 +77,28 @@ def cal():
     for i in range(12):
         isWeekend = False
         isWeekday = False
-        print(weekends[i], days)
+        isAllWeekend = False
+        isAllWeekday = False
         text1 = ["w", "e", "e", "k", "e", "n", "d"]
         text2 = ["w", "e", "e", "k", "d", "a", "y"]
         text3 = ["a", "l", "l", "d", "a", "y", "s"]
 
         if all(x in new_days[i] for x in weekends[i]):  # i = month -1
-            isWeekend = True
+            isAllWeekend = True
         if all(x in new_days[i] for x in weekdays[i]):
-            isWeekday = True
-        if isWeekend:
+            isAllWeekday = True
+        for j in new_days[i]:
+            if j in weekends[i]:
+                isWeekend = True
+            if j in weekdays[i]:
+                isWeekday = True
+        if isWeekend and not isWeekday:
             for j in range(7):
                 state[8 * i + j] = text1[j]
-        if isWeekday:
+        if isWeekday and not isWeekend:
             for j in range(7):
                 state[8 * i + j] = text2[j]
-        if isWeekend and isWeekday:
+        if isAllWeekend and isAllWeekday:
             for j in range(7):
                 state[8 * i + j] = text3[j]
 
