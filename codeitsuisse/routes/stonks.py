@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 @app.route('/stonks', methods = ['POST'])
-def evaluate():
+def stonk():
     data = request.get_json()
     logging.info("data sent for evaluation {}".format(data))
     init_energy = data.get("energy")
