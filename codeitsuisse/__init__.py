@@ -5,6 +5,7 @@ import codeitsuisse.routes.ticker
 import codeitsuisse.routes.calendarDays
 import codeitsuisse.routes.stonks
 import codeitsuisse.routes.quordle
+import codeitsuisse.routes.dns
 
 
 
