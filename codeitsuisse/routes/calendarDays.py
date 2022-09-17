@@ -65,6 +65,8 @@ def cal():
         if state[month_pos * 8:month_pos * 8+7] == ["m", "t", "w", "t", "f", " ", " "]:
             print("hello")
             state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "d", "a", "y"]
+        if state[month_pos * 8:month_pos * 8+7] == [" ", " ", " ", " ", " ", "s", "s"]:
+            state[month_pos * 8:month_pos * 8 + 7] = ["w", "e", "e", "k", "e", "n", "d"]
 
     for i in range(1, maxDays+1):
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
