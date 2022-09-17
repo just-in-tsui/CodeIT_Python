@@ -4,12 +4,18 @@ import logging
 import json
 from sseclient import SSEClient
 import requests
+import random
 
 from flask import request, jsonify
 
 from codeitsuisse import app
 
 logger = logging.getLogger(__name__)
+
+def flip(battleId):
+    rdata = {}
+    rdata['action'] = '(╯°□°)╯︵ ┻━┻'
+    requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
 
 @app.route('/connect4', methods=['POST'])
 def connect4():
@@ -35,18 +41,24 @@ def connect4():
                     youAre = data['youAre']
                     if(data['youAre'] == "\xF0\x9F\x94\xB4"):
                         logging.info("Prepare to make move")
-                        rdata = {}
-                        rdata['action'] = '(╯°□°)╯︵ ┻━┻'
-                        requests.post("https://cis2022-arena.herokuapp.com/connect4/play/"+battleId, data = rdata)
+                        flip(battleId)
             except:
                 try:
-                    if(data['player'] == "\xF0\x9F\x94\xB4"):
-                        continue
-                    else:
-                        rdata = {}
-                        rdata['action'] = '(╯°□°)╯︵ ┻━┻'
-                        requests.post("https://cis2022-arena.herokuapp.com/connect4/play/"+battleId, data = rdata)
+                    columns ="ABCDEFG"
+                    if data["column"] not in columns:
+                        flip(battleId)
                         break
+                    if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
+                        flip(battleId)
+                        break
+
+                    else:
+                        columns = "ABCDEFG"
+                        rdata = {}
+                        rdata['action'] = 'putToken'
+                        rdata['column'] = random.choice(columns)
+                        requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
+                        continue
                 except:
                     try:
                         if(data['winner'] == "draw" or data['winner'] == youAre):
