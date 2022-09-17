@@ -42,29 +42,23 @@ def cal():
         weekdays.append([])
         weekends.append([])
         new_days.append([])
-
+    state = list(state)
     for day in days:
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
         delta = datetime.timedelta(day - 1)  # str(delta) will be '31 days, 0:00:00'
         newdate = date + delta  # date = 2022-03-21
         month_pos = newdate.month - 1
-        if maxDays >= day > 0:
-            new_days[month_pos].append(day)
-    state = list(state)
-
-    for day in days:
-        date = datetime.date(year, 1, 1)  # Will give 1996-01-01
-        delta = datetime.timedelta(day - 1)  # str(delta) will be '31 days, 0:00:00'
-        newdate = date + delta  # date = 2022-03-21
-
-
-        month_pos = newdate.month - 1  # month = 3 -> [2]
         dayOfWeek = newdate.weekday()  # Mon = 0 ,Sun = 6
         week = ["m", "t", "w", "t", "f", "s", "s"]
-        # print(month_pos * 8 + dayOfWeek)
+        if (month_pos == 11):
+            print(day, newdate)
         if maxDays >= day > 0:
             state[month_pos * 8 + dayOfWeek] = week[dayOfWeek]
-        #print(state[month_pos * 8:month_pos * 8+6])
+        if maxDays >= day > 0:
+            new_days[month_pos].append(day)
+
+
+
 
     for i in range(1, maxDays+1):
         date = datetime.date(year, 1, 1)  # Will give 1996-01-01
@@ -89,7 +83,7 @@ def cal():
         if state[i * 8:i * 8 + 7] == ["m", "t", "w", "t", "f", "s", "s"]:
             state[i * 8:i * 8 + 7] = ["a", "l", "l", "d", "a", "y", "s"]
     result1 = ''.join(state)
-
+    print("~~~~", result1)
     # ------------------------------------
     index = result1.find(" ")
     newYear = 2001 + index
@@ -133,7 +127,8 @@ def cal():
         elif input2[month_pos] == "weekend":
             result2.extend(weekends[month_pos])
         else:
-            satisfied ={"Mo":False,"Tu": False, "We":False, "Th": False, "Fr":False }
+            satisfied ={"Mo":False,"Tu": False, "We":False, "Th": False, "Fr":False, "Sa": False, "Su": False}
+            print(input2[month_pos])
             for j in weekdays[month_pos]: #checking every weekday in the month
 
                 delta = datetime.timedelta(j - 1)  # str(delta) will be '31 days, 0:00:00'
@@ -153,7 +148,14 @@ def cal():
                 elif input2[month_pos][4] == 'f' and newdate.weekday() == 4 and not satisfied["Fr"]:
                     result2.append(j)
                     satisfied["Fr"] = True
-    print(result2)
+                elif input2[month_pos][5] == 's' and newdate.weekday() == 5 and not satisfied["Sa"]:
+                    result2.append(j)
+                    satisfied["Sa"] = True
+                elif input2[month_pos][6] == 's' and newdate.weekday() == 6 and not satisfied["Su"]:
+                    result2.append(j)
+                    satisfied["Su"] = True
+
+    print("***\n",year, result1, result2)
 
 
 
