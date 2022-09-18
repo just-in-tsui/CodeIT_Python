@@ -16,6 +16,7 @@ def flip(battleId):
     rdata = {}
     rdata['action'] = '(╯°□°)╯︵ ┻━┻'
     requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
+    print("flipped")
 
 @app.route('/connect4', methods=['POST'])
 def connect4():
@@ -45,6 +46,7 @@ def connect4():
                         break
             except:
                 try:
+                    print("making move")
                     columns ="ABCDEFG"
                     if data["column"] not in columns:
                         flip(battleId)
