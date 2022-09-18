@@ -40,18 +40,16 @@ def connect4():
             try:
                 print("making move")
                 columns ="ABCDEFG"
-                if "column" in data:
-                    if data["column"] not in columns:
-                        flip(battleId)
+                if data["column"] not in columns:
+                    flip(battleId)
                     break
-                if "player" in data:
-                    if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
-                        flip(battleId)
-                        break
-                if "action" in data:
-                    if data["action"] == '(╯°□°)╯︵ ┻━┻':
-                        flip(battleId)
-                        break
+                if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
+                    flip(battleId)
+                    break
+                if data["action"] == '(╯°□°)╯︵ ┻━┻':
+                    flip(battleId)
+                    break
+
                 else:
                     rdata = {}
                     rdata['action'] = 'putToken'
@@ -59,7 +57,6 @@ def connect4():
                     requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
                     continue
             except:
-                print("Cant make move")
                 try:
                     if(data['winner'] == "draw" or data['winner'] == youAre):
                         logging.info("Win game!")
