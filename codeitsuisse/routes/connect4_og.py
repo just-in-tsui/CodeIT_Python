@@ -42,7 +42,7 @@ def connect4():
                 columns ="ABCDEFG"
                 if "column" in data:
                     if data["column"] not in columns:
-                    flip(battleId)
+                        flip(battleId)
                     break
                 if "player" in data:
                     if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
