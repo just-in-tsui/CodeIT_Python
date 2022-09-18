@@ -38,42 +38,36 @@ def connect4():
                 except:
                     continue
             try:
-                if( data['youAre'] != ""):
-                    youAre = data['youAre']
-                    if(data['youAre'] == "\xF0\x9F\x94\xB4"):
-                        logging.info("Prepare to make move")
-                        flip(battleId)
-                        break
+                print("making move")
+                columns ="ABCDEFG"
+                if data["column"] not in columns:
+                    flip(battleId)
+                    break
+                if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
+                    flip(battleId)
+                    break
+                if data["action"] == '(╯°□°)╯︵ ┻━┻':
+                    flip(battleId)
+                    break
+
+                else:
+                    rdata = {}
+                    rdata['action'] = 'putToken'
+                    rdata['column'] = random.choice(columns)
+                    requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
+                    continue
             except:
+                print("Cant make move")
                 try:
-                    print("making move")
-                    columns ="ABCDEFG"
-                    if data["column"] not in columns:
-                        flip(battleId)
-                        break
-                    if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
-                        flip(battleId)
-                        break
-                    if data["action"] == '(╯°□°)╯︵ ┻━┻':
-                        flip(battleId)
-                        break
+                    if(data['winner'] == "draw" or data['winner'] == youAre):
+                        logging.info("Win game!")
                     else:
-                        rdata = {}
-                        rdata['action'] = 'putToken'
-                        rdata['column'] = random.choice(columns)
-                        requests.post("https://cis2022-arena.herokuapp.com/connect4/play/" + battleId, data = rdata)
-                        continue
+                        logging.info("Possibly lost game!")
+                    gameOn = False
+                    break
                 except:
-                    try:
-                        if(data['winner'] == "draw" or data['winner'] == youAre):
-                            logging.info("Win game!")
-                        else:
-                            logging.info("Possibly lost game!")
-                        gameOn = False
-                        break
-                    except:
-                        gameOn = False
-                        break
+                    gameOn = False
+                    break
     return json.dumps(data)
 
 # def makemove2(board,youAre,battleId,players):
