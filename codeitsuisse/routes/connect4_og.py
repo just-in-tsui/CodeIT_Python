@@ -43,13 +43,14 @@ def connect4():
                 if data["column"] not in columns:
                     flip(battleId)
                     break
-                if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
-                    flip(battleId)
-                    break
-                if data["action"] == '(╯°□°)╯︵ ┻━┻':
-                    flip(battleId)
-                    break
-
+                if "player" in data:
+                    if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
+                        flip(battleId)
+                        break
+                if "action" in data:
+                    if data["action"] == '(╯°□°)╯︵ ┻━┻':
+                        flip(battleId)
+                        break
                 else:
                     rdata = {}
                     rdata['action'] = 'putToken'
