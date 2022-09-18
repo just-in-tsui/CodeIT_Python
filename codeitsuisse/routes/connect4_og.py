@@ -54,9 +54,10 @@ def connect4():
                     if data['player'] != "\xF0\x9F\x94\xB4" and data['player'] != "\xF0\x9F\x9F\xA1":
                         flip(battleId)
                         break
-
+                    if data["action"] == '(╯°□°)╯︵ ┻━┻':
+                        flip(battleId)
+                        break
                     else:
-                        columns = "ABCDEFG"
                         rdata = {}
                         rdata['action'] = 'putToken'
                         rdata['column'] = random.choice(columns)
