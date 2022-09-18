@@ -40,7 +40,8 @@ def connect4():
             try:
                 print("making move")
                 columns ="ABCDEFG"
-                if data["column"] not in columns:
+                if "column" in data:
+                    if data["column"] not in columns:
                     flip(battleId)
                     break
                 if "player" in data:
